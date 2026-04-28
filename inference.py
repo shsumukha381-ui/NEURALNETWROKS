@@ -17,9 +17,7 @@ print(f"✓ Recordings directory: {os.path.abspath(SAVE_DIR)}")
 
 
 class SimpleAnomalyModel(torch.nn.Module):
-    """
-    Simplified LSTM model (matches training)
-    """
+   
     def __init__(self, input_size=99, hidden_size=64, num_layers=2):
         super(SimpleAnomalyModel, self).__init__()
         
