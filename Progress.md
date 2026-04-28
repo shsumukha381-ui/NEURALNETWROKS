@@ -1,23 +1,64 @@
-1. Hardware & StabilityResolved an initial 0xC0000005 memory violation by implementing DirectShow (cv2.CAP_DSHOW) for the camera interface. Successfully established a stable 30 FPS real-time feed by optimizing MediaPipe delegates for the RTX 3050 GPU.2. Data & Feature EngineeringDeveloped a custom dataset of 80 motion sequences (2,400+ frames). Engineered a 120-dimensional feature vector per frame that calculates joint velocity and Euclidean distances ($d = \sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}$), providing the AI with a mathematical model of kinetic intent.3. AI Training & ArchitectureImplemented a Bidirectional LSTM with an Attention Mechanism for temporal analysis. The model achieved 100% validation accuracy within 200 epochs, effectively minimizing Binary Cross-Entropy loss to isolate aggressive behavioral signatures.4. Security & Evidence IntegrityBuilt a Digital Chain of Custody backend. Upon detection, the system triggers background recording and generates a SHA-256 cryptographic hash of the footage. This ensures all evidence is tamper-proof and verifiable in the security_log.json.5. Status & Next StepsThe core detection and alerting pipeline is fully functional. We are now transitioning to Multi-Class Classification to distinguish between specific anomalies, such as physical altercations and medical emergencies (falls).
-   
-1. Multi-Class Logic Upgrade
-The system has been upgraded from binary (Anomaly/Normal) to Multi-Class Classification. By implementing a Softmax output layer, the model now specifically identifies kinetic signatures for Fighting (security threat) and Falling (medical emergency), rather than just flagging generic "bad" behavior.
+# SafetyNet AI - Hackathon Progress
 
-2. Permanent Evidence Storage
-We resolved a file-handling issue where Gradio was storing footage in temporary directories. We implemented a robust storage logic using the shutil library to move processed clips into a permanent recordings/ folder on the local SSD. This ensures that the SHA-256 hash recorded in the logs points to a stable, verifiable file.
-
-3. UI & Logging Refinement
-The Gradio Dashboard now acts as a full forensic suite. It displays the real-time feed, the calculated risk probability for each specific anomaly, the cryptographic SHA-256 hash, and the AI-generated narrative summary side-by-side.
-
-
-4. Scaling with Transfer Learning
-Integrated 1,000 images from the UCF dataset into the training pipeline. Replaced the baseline model with a ResNet18 backbone, leveraging pre-trained ImageNet weights to accelerate feature extraction and improve detection accuracy on the RTX 3050.
-
-5. Multi-Class Optimization
-Transitioned from binary detection to a 3-class system (Fighting, Falling, Normal). Resolved a critical AttributeError by correctly mapping model.fc.in_features to the ResNet architecture, ensuring the neural network "head" aligns with the 512-dimensional feature vector.
-
-6. Permanent Evidence Storage
-Fixed a critical data loss issue where Gradio was storing videos in temporary folders. Implemented a Permanent I/O Bridge using shutil to move incident clips into the local recordings/ directory, ensuring evidence survives application restarts.
-
-7. Cryptographic Integration
-Synchronized the SHA-256 hashing logic with the new storage path. Every anomaly is now captured as a 10-second clip, moved to the local vault, and cryptographically signed. The resulting hash is logged in security_log.json, creating a tamper-proof digital chain of custody.
+- Project initialization and environment setup
+- Installed PyTorch, OpenCV, MediaPipe, Gradio
+- Created LSTM model architecture with attention mechanism
+- Set up MediaPipe pose detection
+- Implemented 120-feature engineering per frame
+- Built data collection system for pose sequences
+- Collected training data for SCHOOL and SHOP environments
+- Implemented bidirectional LSTM with attention
+- Trained models on fighting vs normal behavior
+- Achieved good detection accuracy
+- Implemented real-time video processing at 30 FPS
+- Added optical flow detection for crowded scenes
+- Created motion heatmap visualization
+- Integrated skeleton detection fallback
+- Built risk scoring system (0-100%)
+- Implemented SHA-256 cryptographic hashing
+- Created evidence_hasher.py for integrity verification
+- Built automatic video archival system
+- Added security_log.json for chain of custody
+- Implemented tamper-proof logging
+- Built Gradio web interface
+- Added video upload and processing
+- Created annotated video output with overlays
+- Implemented real-time progress tracking
+- Added audio alerts for anomalies
+- Created admin panel with gradient UI
+- Implemented login system with SHA-256 password hashing
+- Built multi-tab dashboard (Video Detection, Security Log, System Info)
+- Created security log viewer
+- Added user management system
+- Fixed recordings folder path (D:\hacthontest12314\recordings)
+- Fixed SHA-256 hash storage location
+- Resolved Gradio 6.0 compatibility issues (CSS, sources parameter)
+- Fixed AttributeError with component scoping
+- Implemented working login interface with show/hide sections
+- Cleaned up project structure (removed 20+ unnecessary files)
+- Created comprehensive documentation
+- LSTM + Optical Flow hybrid detection
+- Real-time pose detection with MediaPipe
+- Multi-environment support (SCHOOL/SHOP)
+- Automatic video archival with SHA-256 hashing
+- Tamper-proof security logging
+- Beautiful gradient UI with authentication
+- Multi-tab admin dashboard
+- Security log viewer
+- Adjustable detection thresholds (50-95%)
+- PyTorch, MediaPipe, OpenCV, NumPy
+- Python 3.8+, Threading, JSON, Hashlib
+- Gradio 6.x, Custom CSS
+- Gradio 6.0 compatibility (CSS parameter, sources parameter)
+- AttributeError with component scoping
+- Path issues for recordings and hash storage
+- Login integration with show/hide sections
+- Optical flow fallback for crowded scenes
+- Fully functional fighting detection system
+- Admin panel with authentication (admin/admin123)
+- Evidence management with SHA-256 integrity
+- Security logging system
+- 2 trained models (SCHOOL 4.3MB, SHOP 4.3MB)
+- 8+ documentation files
+- ~2,500+ lines of code
+- Production-ready and fully operational
