@@ -85,7 +85,6 @@
 - Implemented click ripple effect (purple glow spreading from click point)
 - Added responsive design breakpoints for mobile (<768px)
 - Created smooth scrolling and 60 FPS animations
-- Implemented GPU-accelerated transforms for performance
 - Added progress bar glow animation
 - Final UI polish and testing
 - Updated HACKATHON_PROGRESS.md with complete timeline
