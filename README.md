@@ -2,7 +2,7 @@
 SafetyNet AI - Real-Time Inference Module
 Live behavioral anomaly detection with visual alerts
 Target: 30+ FPS on NVIDIA RTX 3050
-"""
+"""wad
 import torch
 import cv2
 import mediapipe as mp
